@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* color: #fff ; */
+}
+
+body{
+    /* background: url("https://mir-s3-cdn-cf.behance.net/project_modules/1400/12a14692394989.5e4aa546e1d7d.jpg") no-repeat center ;
+    background-size: cover; */
+    /* background: url("https://4.bp.blogspot.com/-bzVocCCv9hI/XOOTmQ1rLXI/AAAAAAAABsI/B-5GWGNwX1IjzknrLb28lhPdZ0gRgtZvgCLcBGAs/s1600/final.jpg"); */
+    /* background: url("https://i.pinimg.com/736x/e0/14/8f/e0148ff838a92298af98d79a42173016.jpg"); */
+    /* background: url("https://www.insidesport.in/wp-content/uploads/2020/09/asdf-3.jpg"); */
+    background: url("https://wallpapercave.com/wp/wp4322404.jpg");
+    background-size: cover;
+    font-family: sans-serif;
+    display: flex;
+    background-color: black;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.form{
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: 80px 40px 40px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.5);
+}
+
+.form::before{
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: rgb(255, 255, 255,0.1);
+    pointer-events: none;
+    transform: skewX(-30deg);
+    transform-origin: bottom  left  ;
+}
+
+.form p{
+    text-align: center;
+    margin-bottom: 2rem;
+    color: rgb(255, 94, 0);
+}
+
+.input{
+    position: relative;
+    padding: 1px;
+}
+.button{
+    padding: 10px;
+}
+.submit-button{
+    display: block;
+    margin-left: auto;
+    border: none;
+    outline: none;
+    background: rgb(255, 94, 0);
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+option{
+    color: black;
+}

@@ -1,0 +1,139 @@
+from django.shortcuts import HttpResponse,render
+import pickle
+import numpy as np
+from django.contrib import messages
+
+def predict(request):
+    if request.method == "POST":
+        
+        bat = request.POST.get('bat_team')
+        bowl = request.POST.get('bowl_team')
+         
+        runs = request.POST.get('runs')
+        wickets = request.POST.get('wickets')
+        overs = request.POST.get('overs')
+        runs_last_5 =  request.POST.get('runs_last_5')
+        wickets_last_5 = request.POST.get('wickets_last_5')
+        details = {
+            "bat" : bat,
+            "bowl" :bowl,
+            "runs":runs,
+            "wickets":wickets,
+            "overs" :overs,
+            "runs_last_5" :runs_last_5,
+            "wickets_last_5" : wickets_last_5
+        }
+        total = 0
+        total = scorePrediction(details)
+        details['total'] = total
+        print("total is",total)
+        print(details)
+        return render(request,'prediction.html',details)
+
+    return render (request,'prediction.html')
+
+def base(request):
+    if request.method == "POST":
+        total = 0
+        flag = True
+        error = ""
+        bat = request.POST.get('bat_team')
+        bowl = request.POST.get('bowl_team')
+        # if(bat == bowl):
+        #     messages.error(request,'Batting and bowling team cant be same')
+        runs = request.POST.get('runs')
+        wickets = request.POST.get('wickets')
+        overs = request.POST.get('overs')
+        runs_last_5 =  request.POST.get('runs_last_5')
+        wickets_last_5 = request.POST.get('wickets_last_5')
+
+        if bat == bowl :
+            error += "Batting and bowling team can not be same."
+            return render(request,'prediction.html',{'error':error})
+            
+        elif int(wickets) == 10 :
+            total = runs 
+            flag = False          
+        elif int(wickets) >10 :
+            error += "Wickets fallen should be less than 10"
+            return render(request,'prediction.html',{'error':error})
+
+        elif float(overs) <= float(5.0) and float(overs) >= float(20.0) : 
+            print(overs)
+            error += "Overs should be between 5 to 20."
+            return render(request,'prediction.html',{'error':error})
+
+        elif int(runs_last_5) > int(runs) :
+            print(runs)
+            print(runs_last_5)
+            error += "Runs in last 5 overs should not be more than total runs scored till " + overs + " overs."
+            return render(request,'prediction.html',{'error':error})
+        elif wickets_last_5 > wickets :
+            error += "Wickets fallen in last 5 overs can not be more than wickets fallen till " + overs + " overs."
+            return render(request,'prediction.html',{'error':error})
+        
+        details = {
+            "bat" : bat,
+            "bowl" :bowl,
+            "runs":runs,
+            "wickets":wickets,
+            "overs" :overs,
+            "runs_last_5" :runs_last_5,
+            "wickets_last_5" : wickets_last_5
+        }
+        if flag:
+            total = scorePrediction(details)
+        details['total'] = total
+        print("total is",total)
+        print(details)
+        return render(request,'prediction.html',details)
+    return render(request,"prediction.html")
+
+def scorePrediction(details):
+    temp_array = list()
+    with open('C:\\Users\\Jainil\\Desktop\\Jainil\\SEM_VI\\SDP\\Django\\cricket_App\\scorePrediction\\static\\model_pickle2','rb') as f:
+        model = pickle.load(f)
+        if details['bat'] == 'Chennai Super Kings':
+            temp_array = temp_array + [1,0,0,0,0,0,0,0]
+        elif details['bat'] == 'Delhi Capitals':
+            temp_array = temp_array + [0,1,0,0,0,0,0,0]
+        elif details['bat'] == 'Kings XI Punjab':
+            temp_array = temp_array + [0,0,1,0,0,0,0,0]
+        elif details['bat'] == 'Kolkata Knight Riders':
+            temp_array = temp_array + [0,0,0,1,0,0,0,0]
+        elif details['bat'] == 'Mumbai Indians':
+            temp_array = temp_array + [0,0,0,0,1,0,0,0]
+        elif details['bat'] == 'Rajasthan Royals':
+            temp_array = temp_array + [0,0,0,0,0,1,0,0]
+        elif details['bat'] == 'Royal Challengers Bangalore':
+            temp_array = temp_array + [0,0,0,0,0,0,1,0]
+        elif details['bat'] == 'Sunrisers Hyderabad':
+            temp_array = temp_array + [0,0,0,0,0,0,0,1]
+
+        if details['bowl'] == 'Chennai Super Kings':
+            temp_array = temp_array + [1,0,0,0,0,0,0,0]
+        elif details['bowl'] == 'Delhi Capitals':
+            temp_array = temp_array + [0,1,0,0,0,0,0,0]
+        elif details['bowl'] == 'Kings XI Punjab':
+            temp_array = temp_array + [0,0,1,0,0,0,0,0]
+        elif details['bowl'] == 'Kolkata Knight Riders':
+            temp_array = temp_array + [0,0,0,1,0,0,0,0]
+        elif details['bowl'] == 'Mumbai Indians':
+            temp_array = temp_array + [0,0,0,0,1,0,0,0]
+        elif details['bowl'] == 'Rajasthan Royals':
+            temp_array = temp_array + [0,0,0,0,0,1,0,0]
+        elif details['bowl'] == 'Royal Challengers Bangalore':
+            temp_array = temp_array + [0,0,0,0,0,0,1,0]
+        elif details['bowl'] == 'Sunrisers Hyderabad':
+            temp_array = temp_array + [0,0,0,0,0,0,0,1]
+        
+        overs = float(details['overs'])
+        runs = int(details['runs'])
+        wickets = int(details['wickets'])
+        runs_l5 = int(details['runs_last_5'])
+        wicket_l5 = int(details['wickets_last_5'])
+        temp_array += [overs,runs,wickets,runs_l5,wicket_l5]
+        t = np.array([temp_array])
+        print(t)
+        total = int(model.predict(t)[0])
+        return total
