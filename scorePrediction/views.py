@@ -3,6 +3,8 @@ import pickle
 import numpy as np
 from django.contrib import messages
 
+from cricket_App import settings
+
 
 team_names = {
     'Chennai Super Kings' : 'CSK',
@@ -17,53 +19,18 @@ team_names = {
 
 def predict(request):
     if request.method == "POST":
-        
-        bat = request.POST.get('bat_team')
-        bowl = request.POST.get('bowl_team')
-         
-        runs = request.POST.get('runs')
-        wickets = request.POST.get('wickets')
-        overs = request.POST.get('overs')
-        runs_last_5 =  request.POST.get('runs_last_5')
-        wickets_last_5 = request.POST.get('wickets_last_5')
-        details = {
-            "bat" : bat,
-            "bowl" :bowl,
-            "runs":runs,
-            "wickets":wickets,
-            "overs" :overs,
-            "runs_last_5" :runs_last_5,
-            "wickets_last_5" : wickets_last_5
-        }
-        total = 0
-        total = scorePrediction(details)
-        details['total'] = total
-        print("total is",total)
-        print(details)
-        return render(request,'prediction.html',details)
-
-    return render (request,'prediction.html')
-
-def base(request):
-    if request.method == "POST":
         total = 0
         flag = True
         error = ""
         bat = request.POST.get('bat_team')
         bowl = request.POST.get('bowl_team')
-        # if(bat == bowl):
-        #     messages.error(request,'Batting and bowling team cant be same')
         runs = request.POST.get('runs')
         wickets = request.POST.get('wickets')
         overs = request.POST.get('overs')
         runs_last_5 =  request.POST.get('runs_last_5')
         wickets_last_5 = request.POST.get('wickets_last_5')
 
-        if bat == bowl :
-            error += "Batting and bowling team can not be same."
-            return render(request,'prediction.html',{'error':error})
-            
-        elif int(wickets) == 10 :
+        if int(wickets) == 10 :
             total = runs 
             flag = False          
         elif int(wickets) >10 :
@@ -109,7 +76,7 @@ def scorePrediction(details):
     print(name)
     print(team_names)
     temp_array = list()
-    with open('C:\\Users\\Jainil\\Desktop\\Jainil\\SEM_VI\\SDP\\Django\\cricket_App\\scorePrediction\\static\\'+name,'rb') as f:
+    with open('C:\\Users\\Jainil\\Desktop\\Jainil\\SEM_VI\\SDP\\Django\\cricket_App\\scorePrediction\\static\\pickle\\'+name,'rb') as f:
         model = pickle.load(f)
         overs = float(details['overs'])
         runs = int(details['runs'])

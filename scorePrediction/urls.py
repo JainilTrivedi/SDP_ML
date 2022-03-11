@@ -3,7 +3,6 @@ from django.urls import path
 from scorePrediction import views
 
 urlpatterns = [
-    path('predict/',views.predict),
-    path('', views.base)
+    path('', views.predict)
     # path('', views.predict)
 ]

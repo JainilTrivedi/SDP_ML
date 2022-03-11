@@ -10,7 +10,8 @@ body{
     /* background: url("https://4.bp.blogspot.com/-bzVocCCv9hI/XOOTmQ1rLXI/AAAAAAAABsI/B-5GWGNwX1IjzknrLb28lhPdZ0gRgtZvgCLcBGAs/s1600/final.jpg"); */
     /* background: url("https://i.pinimg.com/736x/e0/14/8f/e0148ff838a92298af98d79a42173016.jpg"); */
     /* background: url("https://www.insidesport.in/wp-content/uploads/2020/09/asdf-3.jpg"); */
-    background: url("https://wallpapercave.com/wp/wp4322404.jpg");
+    /* background: url("https://wallpapercave.com/wp/wp4322404.jpg"); */
+    background-color: aliceblue;
     background-size: cover;
     font-family: sans-serif;
     display: flex;
@@ -77,4 +78,39 @@ body{
 }
 option{
     color: black;
+}
+
+
+.left{
+	/* z-index: 1; */
+    display: inline-block;
+	position: absolute;
+	left: 15px;
+	/* top: -5px; */
+	width: 49vw;
+	height: 100vh;
+	border-radius: 5px;
+    /* background-color: #fff; */
+}
+
+.right{
+    /* z-index: 1; */
+	display: inline-block;
+	width: 49vw;
+	height: 100vh;
+	position: absolute;
+	right: 15px;
+	/* top: -5px; */
+	border-radius: 5px;
+    /* background-color: aqua; */
+}
+
+.image-left{
+    width: 49vw;
+    height: 100vh;
+}
+
+.image-right{
+    width: 49vw;
+    height: 100vh;
 }
