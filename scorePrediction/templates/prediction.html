@@ -26,42 +26,76 @@
   <body>
     <div class="left">
       <div class="image-container">
-        <img class="image-left" id="image-left" src="{% static 'images/CSK.jpg' %}" >
-        {% comment %} <img class="image-left" id="image-left" src="https://i.pinimg.com/originals/29/2b/d5/292bd5c291ff709c415928ff94454259.png" > {% endcomment %}
+        <img
+          class="image-left"
+          id="image-left"
+          src="{% static 'images/CSK.jpg' %}"
+        />
+        {% comment %}
+        <img
+          class="image-left"
+          id="image-left"
+          src="https://i.pinimg.com/originals/29/2b/d5/292bd5c291ff709c415928ff94454259.png"
+        />
+        {% endcomment %}
       </div>
     </div>
     <div class="right">
       <div class="image-container">
-        <img class="image-right" id="image-right" src="{% static 'images/DC.jpg' %}" >
+        <img
+          class="image-right"
+          id="image-right"
+          src="{% static 'images/DC.jpg' %}"
+        />
       </div>
     </div>
 
     <div class="container">
       {% if error %}
-        <div class="alert alert-danger alert-dismissible fade show" id = "errors" role="alert">
-            <strong>Error </strong> {{error}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endif %}
+      <div
+        class="alert alert-danger alert-dismissible fade show"
+        id="errors"
+        role="alert"
+      >
+        <strong>Error </strong> {{error}}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endif %}
       <form method="POST" action="" class="form">
+        
+        {% comment %} Either printing score or heading {% endcomment %}
         {% if total %}
         <p><b> First innings predicted score is {{total}} </b></p>
         {% else %}
         <p>Enter match details</p>
         {% endif%} {% csrf_token %}
-          <label for="bat_team">Batting teams</label>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-          <select name="bat_team" id="bat_team" onload="addTeams(this)" onchange="removeTeam(this)">
-          </select>
-          <br />
 
-          <label for="bowl_team">Bowling teams</label>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <select name="bowl_team" id="bowl_team" onchange="changebg(this)">
-            
-          </select>
-          <br />
-           
+
+        <label for="bat_team">Batting teams</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />
+        <select
+          name="bat_team"
+          id="bat_team"
+          class="team"
+          onchange="changes()"
+        ></select>
+        <br />
+        
+        <label for="bowl_team">Bowling teams</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+        <select
+          name="bowl_team"
+          id="bowl_team"
+          class="team"
+          onchange="changes()"
+        ></select>
+        <br />
+        
         <div class="inputs">
           <label for="runs"> Runs</label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
