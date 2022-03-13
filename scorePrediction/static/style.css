@@ -77,10 +77,13 @@ body{
     cursor: pointer;
     text-transform: uppercase;
 }
+
 option{
     color: black;
+    /* background-color: ; */
+    padding: 2px;
+    width: 3vw;
 }
-
 
 .left{
 	/* z-index: 1; */
@@ -115,3 +118,8 @@ option{
     width: 49vw;
     height: 100vh;
 }
+
+.team{
+    width: 15vw;;
+}
+
