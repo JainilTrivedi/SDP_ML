@@ -39,6 +39,7 @@ body{
 }
 
 .form::before{
+    max-width: 400px;
     content: " ";
     position: absolute;
     top: 0;
@@ -48,7 +49,7 @@ body{
     background: rgb(255, 255, 255,0.1);
     pointer-events: none;
     transform: skewX(-30deg);
-    transform-origin: bottom  left  ;
+    transform-origin: bottom  right  ;
 }
 
 .form p{

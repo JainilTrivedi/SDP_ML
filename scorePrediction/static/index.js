@@ -113,3 +113,21 @@ function changes(){
         }
     }
 }
+
+    var bat_team = document.getElementById("bat_team");
+    var img = document.getElementById('image-right')
+    // alert(team_names[name] +" " +img + " " + urls[name]);
+    img.src = urls[name];
+    // img.src = "https://i.pinimg.com/originals/85/52/f8/8552f811e95b998d9505c43a9828c6d6.jpg";
+
+    $("#bat_team").empty();
+    for(var i = 0; i < teams.length; i++) {
+        if(teams[i]==name){
+            continue;
+        }
+        var opt = teams[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        bat_team.appendChild(el);
+    }
+}
