@@ -41,16 +41,6 @@ team_names = {
 
 path =  "http://127.0.0.1:8000/static/images/";
 
-urls={
-    'Delhi Capitals' : 'https://wcstatic.abplive.in/en/prod/wp-content/uploads/2018/12/7oro6ldbCp.JPG',
-    'Punjab Kings' : 'https://www.insidesport.in/wp-content/uploads/2021/02/2021-02-17-5.jpg',
-    'Kolkata Knight Riders' :'https://cdn.shopify.com/s/files/1/2658/5942/files/KKR-LOGO-WITH-BACK.jpg?height=628&pad_color=3b215d&v=1583755340&width=1200',
-    'Mumbai Indians' : 'https://i.pinimg.com/originals/29/2b/d5/292bd5c291ff709c415928ff94454259.png',
-    'Rajasthan Royals' : 'https://kheltalk.com/wp-content/uploads/2020/03/rr1.jpg',
-    'Royal Challengers Bangalore' :  'https://pixlok.com/wp-content/uploads/2021/01/RCB_-logo_with_Satin_Flag.jpg',
-    'Sunrisers Hyderabad' : 'https://static.toiimg.com/thumb/msid-72902421,width-1200,height-900,resizemode-4/.jpg'
-}
-
 
 // onload is not there in select so we use this method
 window.addEventListener("load",function(){
@@ -63,7 +53,6 @@ window.addEventListener("load",function(){
     }
     var team = bat_team.options[bat_team.selectedIndex].innerHTML;
     var bowl_team = document.getElementById("bowl_team");
-    // this.alert(team)
     for(var i = 0; i < bowl_teams.length; i++) {
         var opt = bowl_teams[i];
         var el = document.createElement("option");
@@ -85,7 +74,6 @@ function changes(){
     var bowlImg = document.getElementById("image-right");
     bowlImg.src = path + team_names[bowlTeamName]+".jpg";
 
-    // alert(batTeamName+bowlTeamName);
     $('#bat_team').empty();
     var f1 = document.createElement("option");
     f1.textContent=batTeamName;
@@ -111,23 +99,5 @@ function changes(){
             el.textContent = opt;
             bowl_team.appendChild(el);
         }
-    }
-}
-
-    var bat_team = document.getElementById("bat_team");
-    var img = document.getElementById('image-right')
-    // alert(team_names[name] +" " +img + " " + urls[name]);
-    img.src = urls[name];
-    // img.src = "https://i.pinimg.com/originals/85/52/f8/8552f811e95b998d9505c43a9828c6d6.jpg";
-
-    $("#bat_team").empty();
-    for(var i = 0; i < teams.length; i++) {
-        if(teams[i]==name){
-            continue;
-        }
-        var opt = teams[i];
-        var el = document.createElement("option");
-        el.textContent = opt;
-        bat_team.appendChild(el);
     }
 }

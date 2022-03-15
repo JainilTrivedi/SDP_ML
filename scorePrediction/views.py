@@ -1,10 +1,8 @@
-from django.shortcuts import HttpResponse,render
+import os
+from django.shortcuts import render
 import pickle
 import numpy as np
-from django.contrib import messages
-
-from cricket_App import settings
-
+from cricket_App.settings import BASE_DIR
 
 team_names = {
     'Chennai Super Kings' : 'CSK',
@@ -35,21 +33,21 @@ def predict(request):
             flag = False          
         elif int(wickets) >10 :
             error += "Wickets fallen should be less than 10"
-            return render(request,'prediction.html',{'error':error})
+            return render(request,'index.html',{'error':error})
 
         elif float(overs) <= float(5.0) and float(overs) >= float(20.0) : 
             print(overs)
             error += "Overs should be between 5 to 20."
-            return render(request,'prediction.html',{'error':error})
+            return render(request,'index.html',{'error':error})
 
         elif int(runs_last_5) > int(runs) :
             print(runs)
             print(runs_last_5)
             error += "Runs in last 5 overs should not be more than total runs scored till " + overs + " overs."
-            return render(request,'prediction.html',{'error':error})
+            return render(request,'index.html',{'error':error})
         elif int(wickets_last_5) > int(wickets) :
             error += "Wickets fallen in last 5 overs can not be more than wickets fallen till " + overs + " overs."
-            return render(request,'prediction.html',{'error':error})
+            return render(request,'index.html',{'error':error})
         
         details = {
             "bat" : bat,
@@ -65,8 +63,8 @@ def predict(request):
         details['total'] = total
         print("total is",total)
         print(details)
-        return render(request,'prediction.html',details)
-    return render(request,"prediction.html")
+        return render(request,'index.html',details)
+    return render(request,"index.html")
 
 def scorePrediction(details):
     bat= details['bat']
@@ -76,7 +74,8 @@ def scorePrediction(details):
     print(name)
     print(team_names)
     temp_array = list()
-    with open('C:\\Users\\Jainil\\Desktop\\Jainil\\SEM_VI\\SDP\\Django\\cricket_App\\scorePrediction\\static\\pickle\\'+name,'rb') as f:
+    
+    with open(os.path.join(BASE_DIR,'scorePrediction\\static\\pickle\\'+name),'rb') as f:
         model = pickle.load(f)
         overs = float(details['overs'])
         runs = int(details['runs'])
