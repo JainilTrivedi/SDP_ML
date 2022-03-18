@@ -7,7 +7,7 @@ from cricket_App.settings import BASE_DIR
 team_names = {
     'Chennai Super Kings' : 'CSK',
     'Delhi Capitals' : 'DC',
-    'Kings XI Punjab' : 'KXIP',
+    'Punjab Kings' : 'KXIP',
     'Kolkata Knight Riders' :'KKR',
     'Mumbai Indians' : 'MI',
     'Rajasthan Royals' : 'RR',
